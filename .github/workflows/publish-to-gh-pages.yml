@@ -1,0 +1,102 @@
+name: Build and Deploy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    # Skip the deploy and Algolia reindex when a push only changes CI or
+    # review-bot configuration, none of which is part of the built site.
+    # Run this workflow manually to deploy after such a push, for example
+    # to try out a change to this file.
+    paths-ignore:
+      - '.github/**'
+      - '.gitar/**'
+      - 'lychee.toml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    # Load environment variables from repository settings,
+    # environment should be named "production"
+    # https://github.com/cadence-workflow/Cadence-Docs/settings/environments
+    environment: production
+    env:
+      CADENCE_DOCS_URL: ${{ vars.CADENCE_DOCS_URL }}
+      BASE_URL: ${{ vars.BASE_URL }}
+      ORGANIZATION_NAME: ${{ vars.ORGANIZATION_NAME }}
+
+    steps:
+      - name: Set environment variables
+        env:
+          REPO_NAME: ${{ github.repository }}
+        id: split
+        run: |
+          if [[ -z "${PROJECT_NAME}" ]]; then
+            echo "PROJECT_NAME not provided, using last part of repository name"
+            echo "PROJECT_NAME=${REPO_NAME##*/}" >> $GITHUB_ENV
+          fi
+          if [[ -z "${BASE_URL}" ]]; then
+            echo "BASE_URL not provided, using repo name for gh-pages"
+            echo "BASE_URL=/${REPO_NAME##*/}/" >> $GITHUB_ENV
+          fi
+          if [[ -z "${ORGANIZATION_NAME}" ]]; then
+            echo "ORGANIZATION_NAME not provided, using the first part of the repository name"
+            echo "ORGANIZATION_NAME=${REPO_NAME/\/*/}" >> $GITHUB_ENV
+          fi
+
+      # same as build.yml
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # configure custom domain for github pages
+      # files placed under static folder will be copied to the root of the build folder
+      - name: Configure domain
+        uses: finnp/create-file-action@1.0.0
+        env:
+          FILE_NAME: "static/CNAME"
+          FILE_DATA: ${{ secrets.CUSTOM_DOMAIN }}
+
+      - name: Use Node.js lts/jod (v22)
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/jod
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          cache: "npm"
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
+          clean: true # Automatically remove deleted files from the deploy branch
+
+      - name: Re-index Algolia search 🔍
+        env:
+          ALGOLIA_CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+          ALGOLIA_CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
+          ALGOLIA_CRAWLER_API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
+        run: |
+          if [ -z "$ALGOLIA_CRAWLER_ID" ] || [ -z "$ALGOLIA_CRAWLER_USER_ID" ] || [ -z "$ALGOLIA_CRAWLER_API_KEY" ]; then
+            echo "Algolia crawler secrets not set, skipping re-indexing"
+            exit 0
+          fi
+          # The Crawler API uses basic auth with the crawler user ID as the
+          # username and the crawler API key as the password. Both come from
+          # https://dashboard.algolia.com/crawler/settings and are distinct
+          # from the regular Algolia application credentials.
+          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${ALGOLIA_CRAWLER_ID}/reindex" \
+            --user "${ALGOLIA_CRAWLER_USER_ID}:${ALGOLIA_CRAWLER_API_KEY}" \
+            --fail-with-body \
+            --silent --show-error

@@ -1,0 +1,18 @@
+---
+layout: default
+title: Tech Review
+description: Evaluate Cadence for your needs from use case, technical, and operational perspectives. Based on CNCF's standard General Technical Review.
+keywords:
+  - cadence tech review
+  - cadence evaluation
+  - cadence cncf review
+  - cadence technical assessment
+---
+
+This document will help you evaluate Cadence for your needs from use case, technical and operational perspectives. This section was created based on CNCF's standard [General Technical Review](https://github.com/cncf/toc/blob/main/operations/project-reviews/general-technical-questions.md).
+
+The review is organized following the cloud native software lifecycle day schemas:
+
+- **Day 0 - Planning** covers design and architecture.
+- **Day 1 - Installation and Deployment** covers initial installation and deployment.
+- **Day 2 - Day-to-Day Operations** covers post-deployment operations, monitoring, maintenance, and troubleshooting.

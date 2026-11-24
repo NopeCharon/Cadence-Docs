@@ -1,0 +1,239 @@
+chopincode:
+  name: Chris Qin
+  title: Applications Developer @ Uber
+  url: https://www.linkedin.com/in/chrisqin0610/
+  image_url: https://github.com/chopincode.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/chrisqin0610/
+    github: chopincode
+
+enderdemirkaya:
+  name: Ender Demirkaya
+  title: Director of Engineering at Uber, Cadence. Author of the Software Engineering Handbook
+  url: https://www.linkedin.com/in/enderdemirkaya/
+  image_url: https://github.com/demirkayaender.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/enderdemirkaya/
+    github: demirkayaender
+
+jakobht:
+  name: Jakob Haahr Taankvist
+  title: Senior Software Engineer @ Uber
+  url: https://www.linkedin.com/in/jakob-taankvist/
+  image_url: https://github.com/jakobht.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/jakob-taankvist/
+    github: jakobht
+
+sankari165:
+  name: Sankari Gopalakrishnan
+  title: Senior Software Engineer @ Uber
+  url: https://www.linkedin.com/in/sankari-gopalakrishnan165/
+  image_url: https://github.com/sankari165.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/sankari-gopalakrishnan165/
+    github: sankari165
+
+ibarrajo:
+  name: Josué Alexander Ibarra
+  title: Developer Advocate @ Uber
+  url: https://github.com/ibarrajo/
+  image_url: https://github.com/ibarrajo.png
+  page: true
+  socials:
+    github: ibarrajo
+    linkedin: https://www.linkedin.com/in/elninja/
+
+kcorbett-netapp:
+  name: Kevin Corbett
+  title: Open Source Community Manager | @instaclustr @NetApp
+  url: https://github.com/kcorbett-netapp
+  image_url: https://github.com/kcorbett-netapp.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/kcorb95/
+    github: kcorbett-netapp
+
+meiliang86:
+  name: Liang Mei
+  title: Engineering Manager @ Uber
+  url: https://www.linkedin.com/in/meiliang86/
+  image_url: https://github.com/meiliang86.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/meiliang86/
+    github: meiliang86
+
+sharanf:
+  name: Sharan Foga
+  title: Director of Operations & Customer Success @ Encube Technologies
+  url: https://www.linkedin.com/in/sfoga/
+  image_url: https://github.com/sharanf.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/sfoga/
+    github: sharanf
+
+taylanisikdemir:
+  name: Taylan Isikdemir
+  title: Sr. Staff Software Engineer @ Uber
+  url: https://www.linkedin.com/in/taylan-isikdemir
+  image_url: https://github.com/taylanisikdemir.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/taylan-isikdemir
+    github: taylanisikdemir
+
+vytautas-karpavicius:
+  name: Vytautas Karpavicius
+  title: Software Engineer @ Uber
+  url: https://www.linkedin.com/in/vytautas-karpavicius
+  image_url: https://github.com/vytautas-karpavicius.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/vytautas-karpavicius
+    github: vytautas-karpavicius
+
+shaddoll:
+  name: Zijian Chen
+  title: Software Engineer @ Uber
+  url: https://www.linkedin.com/in/zijian-chen-5868938b/
+  image_url: https://github.com/Shaddoll.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/zijian-chen-5868938b/
+    github: Shaddoll
+
+adhityamamallan:
+  name: Adhitya Mamallan
+  title: Software Engineer II @ Uber
+  url: https://www.linkedin.com/in/adhityamamallan/
+  image_url: https://github.com/adhityamamallan.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/adhityamamallan/
+    github: adhityamamallan
+
+arzonus:
+  name: Seva Kaloshin
+  title: Senior Software Engineer @ Uber
+  url: https://www.linkedin.com/in/seva-kaloshin/
+  image_url: https://github.com/arzonus.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/seva-kaloshin/
+    github: arzonus
+
+kevinb:
+  name: Kevin Burns
+  title: Developer Advocate @ Uber
+  url: https://www.linkedin.com/in/kevin-burns-8182aa58/
+  image_url: https://github.com/bueller87.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/kevin-burns-8182aa58/
+    github: bueller87
+
+assem-hafez:
+  name: Assem Hafez
+  title: Software Engineer @ Uber
+  url: https://github.com/assem-hafez
+  image_url: https://github.com/assem-hafez.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/assem-hafez-160553b7/
+    github: Assem-Hafez
+
+eleonoradgr:
+  name: Eleonora Di Gregorio
+  title: Senior Software Engineer @ Uber
+  url: https://www.linkedin.com/in/eleonora-di-gregorio-244248167/
+  image_url: https://github.com/eleonoradgr.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/eleonora-di-gregorio-244248167/
+    github: eleonoradgr
+
+timl3136:
+  name: Jiahao Li
+  title: Software Engineer @ Uber
+  url: https://www.linkedin.com/in/timl3136
+  image_url: https://github.com/timl3136.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/timl3136
+    github: timl3136
+
+abhishekj720:
+  name: Abhishek Jha
+  title: Software Engineer @ Uber
+  url: https://www.linkedin.com/in/mrjhaabhishek/
+  image_url: https://github.com/abhishekj720.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/mrjhaabhishek/
+    github: abhishekj720
+
+yoavlevy:
+  name: Yoav Levy
+  title: Software Engineer Intern @ Uber
+  url: https://www.linkedin.com/in/yoav-levy-880557204/
+  image_url: https://github.com/YoavLev.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/yoav-levy-880557204/
+    github: YoavLev
+
+andreasholt:
+  name: Andreas Holt
+  title: Software Engineer I @ Uber
+  url: https://www.linkedin.com/in/andreas-holt/
+  image_url: https://github.com/andreasholt.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/andreas-holt/
+    github: andreasholt
+
+gazizayestemir:
+  name: Gaziza Yestemirova
+  title: Software Engineer II @ Uber
+  url: https://www.linkedin.com/in/gaziza-yestemirova-57b93b106/
+  image_url: https://github.com/gazizayestemir.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/gaziza-yestemirova-57b93b106/
+    github: gazizayestemir
+
+dkrotx:
+  name: Jan Kisel
+  title: Staff Software Engineer @ Uber
+  url: https://www.linkedin.com/in/jan-kisel-92942518/
+  image_url: https://github.com/dkrotx.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/jan-kisel-92942518/
+    github: dkrotx
+
+shijiesheng:
+  name: Shijie Sheng
+  title: Staff Software Engineer @ Uber
+  url: https://www.linkedin.com/in/liouvetren/
+  image_url: https://github.com/shijiesheng.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/liouvetren/
+    github: shijiesheng
+
+zawadzkidiana:
+  name: Diana Zawadzki
+  title: Software Engineer @ Uber
+  url: https://www.linkedin.com/in/diana-zawadzki-9b3607202/
+  image_url: https://github.com/zawadzkidiana.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/diana-zawadzki-9b3607202/
+    github: zawadzkidiana

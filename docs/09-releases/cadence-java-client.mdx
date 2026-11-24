@@ -1,0 +1,49 @@
+---
+layout: default
+title: Cadence Java Client Releases
+description: This page lists the release history and changelog for the Cadence Java client, including the latest stable version, Java compatibility requirements, and links to detailed GitHub release notes.
+keywords:
+  - cadence java client releases
+  - cadence java client changelog
+  - cadence java client versions
+  - cadence java sdk releases
+  - cadence java release notes
+permalink: /docs/releases/cadence-java-client
+---
+
+import {ListReleases, getReleaseData, getLatestRelease} from  '@site/src/components/CadenceReleases';
+export const releases = getReleaseData('cadence-java-client.json');
+export const latestRelease = getLatestRelease(releases);
+
+
+The Cadence Java client follows [semantic versioning](https://semver.org/spec/v2.0.0.html). See the Java client's [GitHub Releases](https://github.com/cadence-workflow/cadence-java-client/releases) for changes and migration notes.
+
+:::tip[Most recently published GA release]
+
+> <strong><a href={latestRelease.html_url} target="_blank">{latestRelease.tag_name}</a> </strong>published on {latestRelease.published_at_date}
+
+:::
+
+:::note[Java release lines]
+
+Java 4.x is the current gRPC-only major line. Java 3.x remains a separate release line that supports both gRPC and TChannel. The project does not publish an end-of-life date for the 3.x line. Check GitHub Releases for the latest patch in each line.
+
+:::
+
+:::info[Java Compatibility]
+
+Java versions 21, 17 and 11 are supported at this time.
+
+Due to backward compatibility, Java versions 17+ require the following JVM flag
+```
+--add-opens java.base/java.lang=ALL-UNNAMED
+```
+
+:::
+
+## Major Releases
+<ListReleases releases={releases}></ListReleases>
+
+---
+
+For a comprehensive list of changes and detailed release notes, please visit the [Cadence Java Client GitHub Releases page](https://github.com/cadence-workflow/cadence-java-client/releases).

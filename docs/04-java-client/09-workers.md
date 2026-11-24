@@ -1,0 +1,76 @@
+---
+layout: default
+title: Worker service
+description: This page explains how to configure and start a Cadence worker service in Java using WorkerFactory, including registering workflow and activity implementations.
+keywords:
+  - cadence worker java
+  - cadence WorkerFactory java
+  - java worker service cadence
+  - cadence worker setup java
+  - register workflow java
+  - cadence task list java
+  - cadence worker configuration
+  - cadence java worker tutorial
+permalink: /docs/java-client/workers
+---
+
+A :worker: or *:worker: service* is a service that hosts the :workflow: and :activity: implementations. The :worker: polls the *Cadence service* for :task:tasks:, performs those :task:tasks:, and communicates :task: execution results back to the *Cadence service*. :worker:Worker: services are developed, deployed, and operated by Cadence customers.
+
+You can run a Cadence :worker: in a new or an existing service. Use the framework APIs to start the Cadence :worker: and link in all :activity: and :workflow: implementations that you require the service to execute.
+
+## Samples
+
+Runnable worker samples:
+
+| Sample | Description | Code |
+|--------|-------------|------|
+| **Worker setup** | Creates a worker, registers implementations, and starts polling | [HelloWorkerSetup.java](https://github.com/cadence-workflow/cadence-java-samples/blob/master/src/main/java/com/uber/cadence/samples/hello/HelloWorkerSetup.java) |
+| **Spring Boot worker** | Spring Boot application that wires up Cadence workers | [CadenceSamplesApplication.java](https://github.com/cadence-workflow/cadence-java-samples/blob/master/src/main/java/com/uber/cadence/samples/spring/CadenceSamplesApplication.java) |
+
+---
+
+```java
+  WorkerFactory factory = WorkerFactory.newInstance(workflowClient,
+          WorkerFactoryOptions.newBuilder()
+                  .setMaxWorkflowThreadCount(1000)
+                  .setStickyCacheSize(100)
+                  .setDisableStickyExecution(false)
+                  .build());
+  Worker worker = factory.newWorker(TASK_LIST,
+          WorkerOptions.newBuilder()
+                  .setMaxConcurrentActivityExecutionSize(100)
+                  .setMaxConcurrentWorkflowExecutionSize(100)
+                  .build());
+
+    // Workflows are stateful. So you need a type to create instances.
+    worker.registerWorkflowImplementationTypes(GreetingWorkflowImpl.class);
+    // Activities are stateless and thread safe. So a shared instance is used.
+    worker.registerActivitiesImplementations(new GreetingActivitiesImpl());
+    // Start listening to the workflow and activity task lists.
+    factory.start();
+```
+
+The code is slightly different if you are using client version prior to 3.0.0:
+```java
+Worker.Factory factory = new Worker.Factory(DOMAIN,
+            new Worker.FactoryOptions.Builder()
+                    .setMaxWorkflowThreadCount(1000)
+                    .setCacheMaximumSize(100)
+                    .setDisableStickyExecution(false)
+                    .build());
+    Worker worker = factory.newWorker(TASK_LIST,
+            new WorkerOptions.Builder()
+                    .setMaxConcurrentActivityExecutionSize(100)
+                    .setMaxConcurrentWorkflowExecutionSize(100)
+                    .build());
+    // Workflows are stateful. So you need a type to create instances.
+    worker.registerWorkflowImplementationTypes(GreetingWorkflowImpl.class);
+    // Activities are stateless and thread safe. So a shared instance is used.
+    worker.registerActivitiesImplementations(new GreetingActivitiesImpl());
+    // Start listening to the workflow and activity task lists.
+    factory.start();
+```
+
+The [WorkerFactoryOptions](https://www.javadoc.io/doc/com.uber.cadence/cadence-client/latest/com/uber/cadence/worker/WorkerFactoryOptions.html) includes those that need to be shared across workers on the hosts like thread pool, sticky cache.
+
+In [WorkerOptions](https://www.javadoc.io/doc/com.uber.cadence/cadence-client/latest/com/uber/cadence/worker/WorkerOptions.Builder.html) you can customize things like pollerOptions, activities per second.

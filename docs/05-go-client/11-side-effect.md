@@ -1,0 +1,53 @@
+---
+layout: default
+title: Side effect
+description: This page explains how to use workflow.SideEffect in Cadence to safely execute nondeterministic code snippets like random value generation within a workflow, recording the result into history for replay.
+keywords:
+  - cadence side effect
+  - workflow.SideEffect
+  - nondeterministic code
+  - workflow determinism
+  - random value workflow
+  - go client side effect
+  - inline activity
+  - cadence go side effect tutorial
+permalink: /docs/go-client/side-effect
+---
+
+`workflow.SideEffect` is useful for short, nondeterministic code snippets, such as getting a random
+value or generating a UUID. It executes the provided function once and records its result into the
+:workflow: history. `workflow.SideEffect` does not re-execute upon replay, but instead returns the
+recorded result. It can be seen as an "inline" :activity:. Something to note about `workflow.SideEffect`
+is that, unlike the Cadence guarantee of at-most-once execution for :activity:activities:, there is no such
+guarantee with `workflow.SideEffect`. Under certain failure conditions, `workflow.SideEffect` can
+end up executing a function more than once.
+
+The only way to fail `SideEffect` is to panic, which causes a :decision_task: failure. After the
+timeout, Cadence reschedules and then re-executes the :decision_task:, giving `SideEffect` another chance
+to succeed. Do not return any data from `SideEffect` other than through its recorded return value.
+
+## Samples
+
+Runnable side effect sample:
+
+| Sample | Description | Code |
+|--------|-------------|------|
+| **Side effect** | Workflow that records a non-deterministic value with `workflow.SideEffect` | [sideeffect](https://github.com/cadence-workflow/cadence-samples/tree/master/new_samples/sideeffect) |
+
+---
+
+The following sample demonstrates how to use `SideEffect`:
+
+```go
+encodedRandom := SideEffect(func(ctx cadence.Context) interface{} {
+    return rand.Intn(100)
+})
+
+var random int
+encodedRandom.Get(&random)
+if random < 50 {
+    ...
+} else {
+    ...
+}
+```
