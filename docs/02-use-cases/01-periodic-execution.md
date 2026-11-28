@@ -43,4 +43,4 @@ Cadence offers two approaches:
 
 **[Schedules](/docs/concepts/schedules)** — the recommended approach for new code. A Schedule is a first-class server-side object that you create, pause, update, and backfill independently of your workflow. It supports overlap policies, catch-up windows, and full observability without modifying your workflow code. Use the `ScheduleClient` in the Go SDK to manage schedules programmatically.
 
-**[Distributed Cron](/docs/go-client/distributed-cron)** — the older approach using `CronSchedule` on `StartWorkflowOptions`. Simpler to set up but less flexible: you cannot pause, update, or backfill a cron workflow without restarting it, and overlap is always skip-new.
+**[Distributed Cron](/docs/go-client/distributed-cron)** — the older approach using `CronSchedule` on `StartWorkflowOptions`. Simpler to set up but less flexible: you cannot pause, update, or backfill a cron workflow without restarting it, and an overrunning run can only skip the missed fires or start one late run.

@@ -44,7 +44,7 @@ async with Client(domain="my-domain", target=CADENCE_TARGET) as client:
 | `execution_start_to_close_timeout` | Max total duration for the workflow (required) |
 | `task_start_to_close_timeout` | Max time for a single decision task (default: 10 s) |
 | `cron_schedule` | Start as a recurring cron workflow |
-| `cron_overlap_policy` | How overlapping cron runs are handled |
+| `cron_overlap_policy` | How overlapping cron runs are handled (see [Handling overlapping runs](/docs/python-client/distributed-cron#handling-overlapping-runs)) |
 | `delay_start` | Delay before the first run |
 | `jitter_start` | Randomize the first run by up to this duration |
 | `first_run_at` | Timezone-aware `datetime` for the first run |

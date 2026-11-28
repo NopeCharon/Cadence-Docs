@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Distributed Cron
-description: How to run a recurring workflow using the cron_schedule option in the Cadence Python SDK.
+description: How to run a recurring workflow using the cron_schedule option in the Cadence Python SDK, and how to handle a run that overlaps the next fire time with cron_overlap_policy.
 keywords:
   - cadence python cron
   - cadence python distributed cron
+  - cadence python cron overlap policy
   - cadence python recurring workflow
   - cadence python distributed cron tutorial
 permalink: /docs/python-client/distributed-cron
@@ -12,7 +13,7 @@ permalink: /docs/python-client/distributed-cron
 
 # Distributed Cron
 
-The `cron_schedule` field on `start_workflow` runs a workflow on a recurring cadence. This is the legacy approach; for new use cases consider [Schedules](/docs/python-client/schedules), which add pause/unpause, backfill, overlap control, and visibility.
+The `cron_schedule` field on `start_workflow` runs a workflow on a recurring cadence. This is the legacy approach; for new use cases consider [Schedules](/docs/python-client/schedules), which add pause/unpause, backfill, more overlap policies, and visibility.
 
 ## Samples
 
@@ -46,7 +47,34 @@ Standard five-field cron syntax is used (`minute hour day-of-month month day-of-
 
 After each run completes (or fails), the Cadence server automatically starts the next execution at the next scheduled time. Each execution is independent: it gets a fresh workflow history and runs from the beginning of the workflow function.
 
-If a run is still executing when the next fire time arrives, the new fire is skipped.
+By default, if a run is still executing when the next fire time arrives, the new fire is skipped. To start one late run instead, set a [cron overlap policy](#handling-overlapping-runs).
+
+## Handling overlapping runs
+
+The `cron_overlap_policy` option decides what the server does when a run closes after the next fire time has already passed, because the run took longer than the interval between two fire times.
+
+| Policy | What happens when a run closes after the next fire time |
+|---|---|
+| `CRON_OVERLAP_POLICY_SKIPPED` | The fire times that passed while the run was open are skipped. The next run starts at the first fire time after the run closes. This is the default. |
+| `CRON_OVERLAP_POLICY_BUFFER_ONE` | The next run starts as soon as the run closes. The server starts only one late run, however many fire times passed. |
+
+For example, with the cron schedule `*/5 * * * *`, a run that starts at 10:00 and closes at 10:08 is followed by a run at 10:10 with `CRON_OVERLAP_POLICY_SKIPPED`, or by a run at 10:08 with `CRON_OVERLAP_POLICY_BUFFER_ONE`.
+
+```python
+from datetime import timedelta
+from cadence.api.v1 import workflow_pb2
+
+execution = await client.start_workflow(
+    "InventorySyncWorkflow",
+    workflow_id="inventory-sync",
+    task_list="inventory-workers",
+    cron_schedule="*/5 * * * *",
+    cron_overlap_policy=workflow_pb2.CRON_OVERLAP_POLICY_BUFFER_ONE,
+    execution_start_to_close_timeout=timedelta(hours=1),
+)
+```
+
+The policy is set when the cron workflow starts, and the server passes it on to every later run, including retries. `signal_with_start_workflow` accepts the same option. It needs Python client v0.2.0 or later and server v1.3.3 or later.
 
 ## Passing state between runs
 
@@ -86,7 +114,7 @@ await client.cancel_workflow("daily-report", "")
 
 | | `cron_schedule` field | Schedules |
 |---|---|---|
-| Overlap control | Always skip | Configurable |
+| Overlap control | Skip or buffer one late run | Skip, buffer, run concurrently, or cancel or terminate the previous run |
 | Pause/unpause | No | Yes |
 | Backfill | No | Yes |
 | Visibility | No | Yes |

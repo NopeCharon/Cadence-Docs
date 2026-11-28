@@ -144,7 +144,7 @@ Both Schedules and the legacy `CronSchedule` field run a workflow on a recurring
 | | Schedules | `CronSchedule` field |
 |---|---|---|
 | Server-side object | Yes, inspect/update/delete via API | No, embedded in workflow options at start |
-| Overlap policy | Configurable per schedule | Fixed: always skip if previous run is active |
+| Overlap policy | Configurable per schedule | Skip (default) or buffer one late run, set when the workflow starts with a [cron overlap policy](/docs/go-client/distributed-cron#cron-overlap-policy) |
 | Pause/unpause | Yes, with notes | No |
 | Backfill | Yes | No |
 | History and observability | Yes, last N runs visible via describe | No |
