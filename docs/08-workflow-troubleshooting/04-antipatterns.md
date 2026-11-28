@@ -30,7 +30,7 @@ Mitigations:
 
 ## Continue-As-New used in a workflow with a cron schedule
 
-Distributed cron is implemented by the Cadence server. When a cron workflow run closes, the server starts the next run at the next scheduled interval, using the cron schedule set when the workflow was started. If the workflow code also calls Continue-As-New, the two mechanisms conflict. The run started by the workflow code begins immediately instead of at the next cron fire time. Depending on timing, the schedule can drift, fire early, or skip intervals.
+Distributed cron is implemented by the Cadence server. When a cron workflow run closes, the server starts the next run at the next scheduled interval, using the cron schedule set when the workflow was started. If the workflow code also calls Continue-As-New, the two mechanisms conflict. The run started by the workflow code begins immediately instead of at the next cron fire time, and Continue-As-New does not carry over the cron schedule. Unless the workflow code passes the schedule on, the new run is not a cron run, and the cron workflow stops after that run closes. Only the Go client can pass it on, starting with v1.4.0, using [`workflow.WithCronSchedule`](/docs/go-client/continue-as-new#continue-as-new-from-a-cron-workflow). Even then, each Continue-As-New starts a run outside the schedule.
 
 Mitigations:
 
